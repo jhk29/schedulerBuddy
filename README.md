@@ -1,6 +1,8 @@
 # Scheduler Buddy
 **Scheduler Buddy** is a MERN stack scheduler web application that is currently in development.
 
+---
+
 To run the application locally,
 1. Clone the entire repo.
 2. In the root directory, run `npm install`.
