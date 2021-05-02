@@ -14,7 +14,7 @@ import {
   ExitToApp,
 } from "@material-ui/icons";
 import useStyles from "./Navbar.styles";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
@@ -22,7 +22,6 @@ import { logoutUser } from "../../../actions/authActions";
 // TODO: fix console errors
 const NavbarDrawer = (props) => {
   const styles = useStyles();
-  const history = useHistory();
 
   const handleLogout = (e) => {
     e.preventDefault();
