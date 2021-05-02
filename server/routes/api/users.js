@@ -29,13 +29,13 @@ router.post("/register", (req, res) => {
         password: req.body.password,
       });
 
-      bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.genSalt(10, (_, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
           newUser
             .save()
-            .then((user) => req.json(user))
+            .then((user) => res.json(user))
             .catch((err) => console.log(err));
         });
       });
@@ -58,7 +58,7 @@ router.post("/login", (req, res) => {
 
   User.findOne({ email }).then((user) => {
     if (!user) {
-      return req.status(404).json({ emailnotfound: "Email not found." });
+      return res.status(404).json({ emailnotfound: "Email not found." });
     }
 
     bcrypt.compare(password, user.password).then((isMatch) => {
@@ -75,7 +75,7 @@ router.post("/login", (req, res) => {
             expiresIn: 31556926, // 1 year in seconds
           },
           (err, token) => {
-            req.json({
+            res.json({
               success: true,
               token: "Bearer " + token,
             });

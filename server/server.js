@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   bodyParser.urlencoded({
-    extended: false
+    extended: false,
   })
 );
 app.use(bodyParser.json());
@@ -17,17 +17,15 @@ app.use(bodyParser.json());
 const db = require("./config/keys").mongoURI;
 
 mongoose
-  .connect(
-    db,
-    { userNewUrlParser: true }
-  )
+  .connect(db, { userNewUrlParser: true })
   .then(() => console.log("Successfully connected to MongoDB."))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
-app.use("/api/users", users);``
+app.use("/api/users", users);
+``;
 
 const port = process.env.PORT || 5000;
 
