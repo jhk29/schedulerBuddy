@@ -10,7 +10,7 @@ import Landing from "./components/pages/Landing/Landing";
 import Register from "./components/pages/Register/Register";
 import Login from "./components/pages/Login/Login";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
-import Dashboard from "./components/pages/Dashboard/Dashboard";
+// import Dashboard from "./components/pages/Dashboard/Dashboard";
 import UnderConstruction from "./components/pages/UnderConstruction/UnderConstruction";
 
 if (localStorage.jwtToken) {
