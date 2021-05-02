@@ -32,6 +32,10 @@ const useStyles = makeStyles(
       textDecoration: "none",
       color: "white",
     },
+    drawerLink: {
+      textDecoration: "none",
+      color: "black",
+    },
   },
   { index: 1 }
 );

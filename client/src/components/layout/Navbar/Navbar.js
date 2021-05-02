@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import NavbarDrawer from "./NavbarDrawer";
-import { AppBar, Toolbar, IconButton, Tab } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Tab,
+  Button,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
+import { Settings, ExitToApp } from "@material-ui/icons";
 import useStyles from "./Navbar.styles";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -8,18 +17,31 @@ import { connect } from "react-redux";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import { Today, AccountCircle } from "@material-ui/icons";
+import { logoutUser } from "../../../actions/authActions";
 
 const Navbar = (props) => {
   const styles = useStyles();
   const history = useHistory();
 
   const [toggleDrawer, setToggleDrawer] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleLogout = () => {
+    props.logoutUser();
+  };
 
   const openDrawer = () => {
     setToggleDrawer(true);
   };
   const closeDrawer = () => {
     setToggleDrawer(false);
+  };
+
+  const openMenu = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const closeMenu = () => {
+    setAnchorEl(null);
   };
 
   const LoginRegisterButtons = () => {
@@ -74,11 +96,42 @@ const Navbar = (props) => {
             />
           </div>
           {props.auth.isAuthenticated ? (
-            <AccountCircle />
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={openMenu}
+              style={{ color: "white" }}
+            >
+              <AccountCircle />
+            </Button>
           ) : (
             <LoginRegisterButtons />
           )}
         </Toolbar>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={closeMenu}
+        >
+          <MenuItem
+            onClick={() => {
+              closeMenu();
+              history.push("/settings");
+            }}
+          >
+            <Settings /> Settings
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              closeMenu();
+              handleLogout();
+            }}
+          >
+            <ExitToApp /> Logout
+          </MenuItem>
+        </Menu>
       </AppBar>
       <NavbarDrawer isOpen={toggleDrawer} close={closeDrawer} />
     </>
@@ -86,6 +139,7 @@ const Navbar = (props) => {
 };
 
 Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -93,4 +147,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logoutUser })(Navbar);

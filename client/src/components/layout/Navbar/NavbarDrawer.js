@@ -14,11 +14,12 @@ import {
   ExitToApp,
 } from "@material-ui/icons";
 import useStyles from "./Navbar.styles";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 
+// TODO: fix console errors
 const NavbarDrawer = (props) => {
   const styles = useStyles();
   const history = useHistory();
@@ -37,33 +38,41 @@ const NavbarDrawer = (props) => {
         onKeyDown={props.close}
       >
         <List>
-          <ListItem button onClick={history.push("/dashboard")} key="Dashboard">
-            <ListItemIcon>
-              <Dashboard />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button key="To-Dos">
-            <ListItemIcon>
-              <ListAlt />
-            </ListItemIcon>
-            <ListItemText primary="To-Dos" />
-          </ListItem>
-          <ListItem button key="Calendar">
-            <ListItemIcon>
-              <DateRange />
-            </ListItemIcon>
-            <ListItemText primary="Calendar" />
-          </ListItem>
+          <Link className={styles.drawerLink} to="/dashboard">
+            <ListItem button key="Dashboard">
+              <ListItemIcon>
+                <Dashboard />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+          </Link>
+          <Link className={styles.drawerLink} to="/todo">
+            <ListItem button key="To-Dos">
+              <ListItemIcon>
+                <ListAlt />
+              </ListItemIcon>
+              <ListItemText primary="To-Dos" />
+            </ListItem>
+          </Link>
+          <Link className={styles.drawerLink} to="/calendar">
+            <ListItem button key="Calendar">
+              <ListItemIcon>
+                <DateRange />
+              </ListItemIcon>
+              <ListItemText primary="Calendar" />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
         <List>
-          <ListItem button key="Settings">
-            <ListItemIcon>
-              <Settings />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItem>
+          <Link className={styles.drawerLink} to="/settings">
+            <ListItem button key="Settings">
+              <ListItemIcon>
+                <Settings />
+              </ListItemIcon>
+              <ListItemText primary="Settings" />
+            </ListItem>
+          </Link>
           <ListItem button onClick={handleLogout} key="Log Out">
             <ListItemIcon>
               <ExitToApp />
