@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 
 const Todo = require("../../models/Todo");
-const validateTodoInput = require("../../validation/todo");
 
 // @route POST api/todo/add
 // @desc Add a new todo
@@ -12,12 +11,6 @@ router.post(
   "/add",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateTodoInput(req.body);
-
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
-
     const newTodo = new Todo({
       userId: req.user.id,
       description: req.body.description,

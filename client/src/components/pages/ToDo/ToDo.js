@@ -8,6 +8,7 @@ import {
   setCompleted,
   deleteTodo,
 } from "../../../actions/todoActions";
+import { priorityLevels } from "../../../utils/priority";
 import {
   Tooltip,
   IconButton,
@@ -22,8 +23,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import MUIDataTable from "mui-datatables";
 import useStyles from "./ToDo.styles";
-import AddToDoModal from "./AddToDoModal";
-import EditToDoModal from "./EditToDoModal";
+import ToDoFormModal from "./ToDoFormModal";
 
 const ToDo = (props) => {
   const styles = useStyles();
@@ -123,20 +123,25 @@ const ToDo = (props) => {
       options: {
         filter: true,
         sort: true,
+        sortDirection: "asc",
         filterOptions: {
           names: ["Low", "Medium", "High"],
         },
         customBodyRender: (value) => {
           let chipColor = "";
+          let name = "";
           switch (value) {
-            case "High":
-              chipColor = "#ff3300";
+            case priorityLevels.HI.level:
+              chipColor = priorityLevels.HI.color;
+              name = priorityLevels.HI.name;
               break;
-            case "Medium":
-              chipColor = "#ff9933";
+            case priorityLevels.ME.level:
+              chipColor = priorityLevels.ME.color;
+              name = priorityLevels.ME.name;
               break;
-            case "Low":
-              chipColor = "#a6a6a6";
+            case priorityLevels.LO.level:
+              chipColor = priorityLevels.LO.color;
+              name = priorityLevels.LO.name;
               break;
             default:
               break;
@@ -144,7 +149,7 @@ const ToDo = (props) => {
           return (
             <Chip
               style={{ backgroundColor: chipColor, color: "white" }}
-              label={value}
+              label={name}
             />
           );
         },
@@ -185,10 +190,13 @@ const ToDo = (props) => {
     download: true,
     print: false,
     viewColumns: true,
-    filterType: "multiselect",
+    filterType: "dropdown",
     responsive: "simple",
     tableBodyHeight: "40rem",
     selectableRows: "none",
+    downloadOptions: {
+      filename: "scheduler_buddy_todos.csv",
+    },
     sortOrder: {
       name: "deadline",
       direction: "asc",
@@ -214,7 +222,7 @@ const ToDo = (props) => {
 
   return (
     <>
-      ``{" "}
+      {" "}
       {props.todo.loading ? (
         <LinearProgress color="secondary" />
       ) : (
@@ -226,12 +234,12 @@ const ToDo = (props) => {
             columns={columns}
             options={options}
           />
-          <AddToDoModal
+          <ToDoFormModal
             open={isAddFormOpen}
             close={setIsAddFormOpen}
             add={handleAdd}
           />
-          <EditToDoModal
+          <ToDoFormModal
             open={isEditFormOpen}
             close={setIsEditFormOpen}
             edit={handleEdit}

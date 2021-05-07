@@ -15,7 +15,7 @@ const TodoSchema = new Schema({
     required: true,
   },
   priority: {
-    type: String,
+    type: Number,
     required: true,
   },
   completed: {
