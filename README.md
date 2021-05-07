@@ -1,6 +1,6 @@
 # Scheduler Buddy
 
-**Scheduler Buddy** is a MERN stack scheduler web application that is currently in development.
+**Scheduler Buddy** is a MERN stack scheduler web application that is currently under development.
 
 ---
 
