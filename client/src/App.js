@@ -11,6 +11,7 @@ import Register from "./components/pages/Register/Register";
 import Login from "./components/pages/Login/Login";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 // import Dashboard from "./components/pages/Dashboard/Dashboard";
+import ToDo from "./components/pages/ToDo/ToDo";
 import UnderConstruction from "./components/pages/UnderConstruction/UnderConstruction";
 
 if (localStorage.jwtToken) {
@@ -40,7 +41,7 @@ const App = () => {
               path="/dashboard"
               component={UnderConstruction}
             />
-            <PrivateRoute exact path="/todo" component={UnderConstruction} />
+            <PrivateRoute exact path="/todo" component={ToDo} />
             <PrivateRoute
               exact
               path="/calendar"

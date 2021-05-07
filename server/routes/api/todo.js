@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const mongoose = require("mongoose");
 
 const Todo = require("../../models/Todo");
 const validateTodoInput = require("../../validation/todo");
@@ -10,7 +9,7 @@ const validateTodoInput = require("../../validation/todo");
 // @desc Add a new todo
 // @access Private
 router.post(
-  "/todo/add",
+  "/add",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateTodoInput(req.body);
@@ -33,11 +32,11 @@ router.post(
   }
 );
 
-// @route GET /api/todos
+// @route GET /api/todo
 // @desc Get all user's todos
 // @access Private
 router.get(
-  "/todo",
+  "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Todo.find({ userId: req.user.id })
@@ -47,7 +46,7 @@ router.get(
           return res.json({ notodos: "No todo was found" });
         }
 
-        return res.json(todo);
+        return res.json(todos);
       })
       .catch((err) => console.log(err));
   }
@@ -57,7 +56,7 @@ router.get(
 // @desc Delete a new todo
 // @access Private
 router.delete(
-  "/todo/:id",
+  "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Todo.findById(req.params.id).then((todo) => {
@@ -69,40 +68,38 @@ router.delete(
 // @route PUT api/todo/:id
 // @desc Update an existing todo
 // @access Private
-router.put(
-  "/todo/:id",
-  passport.authenticate("jwt", { session: flase }),
+router.post(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const updatedFields = _.pick(req.body, [
-      "description",
-      "completed",
-      "deadline",
-      "priority",
-      "createdAt",
-    ]);
-    if (!updatedFields.description) {
+    if (!req.body.description) {
       return res
         .status(400)
         .json({ description: "Description field is required." });
     }
 
-    if (
-      updatedFields.createdAt > updatedFields.deadline &&
-      updatedFields.deadline !== null
-    ) {
+    if (req.body.createdAt > req.body.deadline && req.body.deadline !== null) {
       return res
         .status(400)
         .json({ deadline: "Deadline must be after start date!" });
     }
+    Todo.findById(req.params.id, (_, todo) => {
+      if (!todo) {
+        return res.json({ noTodo: "To-do was not found." });
+      } else {
+        todo.description = req.body.description;
+        todo.priority = req.body.priority;
+        todo.deadline = req.body.deadline;
+        todo.completed = req.body.completed;
 
-    Todo.findOneAndUpdate(req.params.id, updatedFields)
-      .then((todo) => {
-        if (!todo) {
-          return res.json({ noTodo: "To-do was not found." });
-        }
-        return res.json(todo);
-      })
-      .catch((err) => console.log(err));
+        todo
+          .save()
+          .then((todo) => {
+            return res.json(todo);
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   }
 );
 

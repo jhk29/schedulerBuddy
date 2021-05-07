@@ -70,7 +70,7 @@ const Register = (props) => {
                 id="name"
                 label="Full Name"
                 autoFocus
-                error={errors.name}
+                error={!!errors.name}
                 helperText={errors.name}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -91,7 +91,7 @@ const Register = (props) => {
                 fullWidth
                 id="email"
                 label="Email Address"
-                error={errors.email}
+                error={!!errors.email}
                 helperText={errors.email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -113,7 +113,7 @@ const Register = (props) => {
                 type="password"
                 id="password"
                 label="Password"
-                error={errors.password}
+                error={!!errors.password}
                 helperText={errors.password}
                 onChange={(e) => {
                   setPassword(e.target.value);
@@ -135,7 +135,7 @@ const Register = (props) => {
                 type="password"
                 id="confirmPassword"
                 label="Confirmation Password"
-                error={errors.confirmPassword}
+                error={!!errors.confirmPassword}
                 helperText={errors.confirmPassword}
                 onChange={(e) => {
                   setConfirmPasssword(e.target.value);
