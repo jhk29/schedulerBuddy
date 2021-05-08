@@ -30,6 +30,7 @@ export const addEvent = (eventData) => (dispatch) => {
         type: ADD_EVENT,
         event: res.data,
       });
+      return true;
     })
     .catch(() =>
       alert("An error occurred while trying to add an event! Please try again.")

@@ -20,6 +20,10 @@ router.post(
       allDay: req.body.allDay,
     });
 
+    if (newEvent.allDay) {
+      newEvent.end = "";
+    }
+
     newEvent
       .save()
       .then((event) => res.json(event))
@@ -81,11 +85,13 @@ router.post(
       if (!event) {
         return res.json({ noEvent: "Event was not found." });
       } else {
-        event.title = req.body.description;
+        event.title = req.body.title;
         event.description = req.body.description;
         event.start = req.body.start;
-        event.end = req.body.end;
         event.allDay = req.body.allDay;
+        if (event.allDay) {
+          event.end = "";
+        }
 
         event
           .save()

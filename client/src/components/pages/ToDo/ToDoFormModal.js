@@ -78,7 +78,6 @@ const ToDoFormModal = (props) => {
         deadline: deadline,
         completed: completed,
       };
-      console.log(todoData);
       props.add ? props.add(todoData) : props.edit(todoId, todoData);
       handleClose();
     }
