@@ -123,7 +123,6 @@ const ToDo = (props) => {
       options: {
         filter: true,
         sort: true,
-        sortDirection: "asc",
         filterOptions: {
           names: ["Low", "Medium", "High"],
         },
