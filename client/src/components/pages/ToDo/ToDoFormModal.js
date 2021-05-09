@@ -20,6 +20,7 @@ import QueueIcon from "@material-ui/icons/Queue";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import { priorityLevels } from "../../../utils/priority";
+import { getTodaysDate } from "../../../utils/dates";
 import { useState, useEffect } from "react";
 
 const ToDoFormModal = (props) => {
@@ -33,7 +34,7 @@ const ToDoFormModal = (props) => {
   const [isDescriptionValid, setIsDescriptionValid] = useState(true);
   const [isPriorityValid, setIsPriorityValid] = useState(true);
   const [isDeadlineValid, setIsDeadlineValid] = useState(true);
-  const [currentDate] = useState(new Date().toISOString().split("T")[0]);
+  const currentDate = getTodaysDate();
 
   useEffect(() => {
     if (props.todo) {
@@ -79,6 +80,14 @@ const ToDoFormModal = (props) => {
         completed: completed,
       };
       props.add ? props.add(todoData) : props.edit(todoId, todoData);
+      handleClose();
+    }
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    if (window.confirm("Are you sure you want to delete this to-do?")) {
+      props.delete(todoId);
       handleClose();
     }
   };
@@ -197,24 +206,34 @@ const ToDoFormModal = (props) => {
         </DialogContent>
         <Divider className={styles.addToDoDivider} />
         <DialogActions>
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            onClick={handleSubmit}
-          >
-            {" "}
-            {props.add ? "Add" : "Save"}
-          </Button>
-          <Button
-            color="primary"
-            variant="outlined"
-            type="reset"
-            onClick={handleClose}
-          >
-            {" "}
-            Cancel
-          </Button>
+          {props.edit ? (
+            <Button color="secondary" variant="outlined" onClick={handleDelete}>
+              Delete
+            </Button>
+          ) : (
+            <></>
+          )}
+          <div className={styles.formButtonContainer}>
+            <Button
+              color="primary"
+              variant="outlined"
+              type="reset"
+              className={styles.formButton}
+              onClick={handleClose}
+            >
+              {" "}
+              Cancel
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              className={styles.formButton}
+              onClick={handleSubmit}
+            >
+              {" "}
+              {props.add ? "Add" : "Save"}
+            </Button>
+          </div>
         </DialogActions>
       </form>
     </Dialog>

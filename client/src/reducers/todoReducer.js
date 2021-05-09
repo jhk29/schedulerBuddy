@@ -5,6 +5,7 @@ import {
   DELETE_TODO,
   UPDATE_TODO,
   SET_TODO_COMPLETE,
+  GET_TODOS_DUE,
 } from "../actions/types";
 
 const initialState = {
@@ -16,6 +17,12 @@ const initialState = {
 export default function todoReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TODOS:
+      return {
+        ...state,
+        todos: action.todos,
+        loading: false,
+      };
+    case GET_TODOS_DUE:
       return {
         ...state,
         todos: action.todos,

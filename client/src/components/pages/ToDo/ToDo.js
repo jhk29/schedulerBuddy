@@ -39,14 +39,6 @@ const ToDo = (props) => {
     }
   }, [props]);
 
-  const handleAdd = (newToDo) => {
-    props.addTodo(newToDo);
-  };
-
-  const handleEdit = (todoId, updatedToDo) => {
-    props.updateTodo(todoId, updatedToDo);
-  };
-
   const handleDelete = (todoId) => {
     if (window.confirm("Are you sure you want to delete this to-do?")) {
       props.deleteTodo(todoId);
@@ -236,12 +228,12 @@ const ToDo = (props) => {
           <ToDoFormModal
             open={isAddFormOpen}
             close={setIsAddFormOpen}
-            add={handleAdd}
+            add={props.addTodo}
           />
           <ToDoFormModal
             open={isEditFormOpen}
             close={setIsEditFormOpen}
-            edit={handleEdit}
+            edit={props.updateTodo}
             todo={editingTodo}
           />
         </>

@@ -4,6 +4,7 @@ import {
   ADD_EVENT,
   DELETE_EVENT,
   UPDATE_EVENT,
+  GET_TODAYS_EVENTS,
 } from "../actions/types";
 
 const initialState = {
@@ -15,6 +16,12 @@ const initialState = {
 export default function eventReducer(state = initialState, action) {
   switch (action.type) {
     case GET_EVENTS:
+      return {
+        ...state,
+        events: action.events,
+        loading: false,
+      };
+    case GET_TODAYS_EVENTS:
       return {
         ...state,
         events: action.events,

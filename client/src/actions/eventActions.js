@@ -5,6 +5,7 @@ import {
   ADD_EVENT,
   DELETE_EVENT,
   UPDATE_EVENT,
+  GET_TODAYS_EVENTS,
 } from "./types";
 
 export const getEvents = () => (dispatch) => {
@@ -22,6 +23,21 @@ export const getEvents = () => (dispatch) => {
     });
 };
 
+export const getTodaysEvents = () => (dispatch) => {
+  dispatch(setLoading());
+  axios
+    .get("api/event/today")
+    .then((res) => {
+      dispatch({
+        type: GET_TODAYS_EVENTS,
+        events: res.data,
+      });
+    })
+    .catch(() => {
+      alert("An error occurred while trying to fetch events!");
+    });
+};
+
 export const addEvent = (eventData) => (dispatch) => {
   axios
     .post("/api/event/add", eventData)
@@ -30,7 +46,6 @@ export const addEvent = (eventData) => (dispatch) => {
         type: ADD_EVENT,
         event: res.data,
       });
-      return true;
     })
     .catch(() =>
       alert("An error occurred while trying to add an event! Please try again.")

@@ -11,6 +11,13 @@ const useStyles = makeStyles(
       marginTop: "2rem",
       marginBottom: "1rem",
     },
+    formButtonContainer: {
+      flex: "1 0 0",
+    },
+    formButton: {
+      marginLeft: 7,
+      float: "right",
+    },
   },
   { index: 1 }
 );

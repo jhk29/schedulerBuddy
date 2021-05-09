@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-
+const moment = require("moment");
 const Todo = require("../../models/Todo");
 
 // @route POST api/todo/add
@@ -40,6 +40,28 @@ router.get(
         }
 
         return res.json(todos);
+      })
+      .catch((err) => console.log(err));
+  }
+);
+
+// @route GET /api/todo/due
+// @desc Get all user's todos due on the current date.
+// @access Private
+router.get(
+  "/due",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Todo.find({ userId: req.user.id })
+      .then((todos) => {
+        if (!todos) {
+          return res.json({ notodos: "No todos are due today" });
+        }
+        const today = moment().startOf("day").toISOString().substring(0, 10);
+        const filteredTodos = todos.filter((todo) => {
+          return todo.deadline.toISOString().substring(0, 10) === today;
+        });
+        return res.json(filteredTodos);
       })
       .catch((err) => console.log(err));
   }

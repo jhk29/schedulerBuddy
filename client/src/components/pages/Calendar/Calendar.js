@@ -133,7 +133,13 @@ const CalendarEvents = (props) => {
   };
 
   return (
-    <>{props.event.loading ? <LinearProgress /> : <CalendarComponent />}</>
+    <>
+      {props.event.loading ? (
+        <LinearProgress color="secondary" />
+      ) : (
+        <CalendarComponent />
+      )}
+    </>
   );
 };
 
