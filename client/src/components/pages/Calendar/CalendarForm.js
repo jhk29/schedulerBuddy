@@ -143,23 +143,41 @@ const CalendarFormModal = (props) => {
               />
             </Grid>
             <Grid item>
-              <TextField
-                name="startDate"
-                type="datetime-local"
-                required
-                label="Start Date"
-                variant="outlined"
-                disabled={allDay}
-                value={startDate}
-                onChange={(e) => {
-                  setStartDate(e.target.value);
-                  setIsEndDateInvalid(false);
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                fullWidth
-              />
+              {allDay ? (
+                <TextField
+                  name="startDate"
+                  type="date"
+                  required
+                  label="Start Date"
+                  variant="outlined"
+                  value={startDate.substring(0, 10)}
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                    setIsEndDateInvalid(false);
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                />
+              ) : (
+                <TextField
+                  name="startDate"
+                  type="datetime-local"
+                  required
+                  label="Start Date"
+                  variant="outlined"
+                  value={startDate}
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                    setIsEndDateInvalid(false);
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                />
+              )}
             </Grid>
             <Grid item>
               <TextField

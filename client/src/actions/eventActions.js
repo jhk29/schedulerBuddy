@@ -6,6 +6,7 @@ import {
   DELETE_EVENT,
   UPDATE_EVENT,
   GET_TODAYS_EVENTS,
+  UPDATE_DASHBOARD_EVENT,
 } from "./types";
 
 export const getEvents = () => (dispatch) => {
@@ -74,6 +75,22 @@ export const updateEvent = (id, eventData) => (dispatch) => {
     .then((res) =>
       dispatch({
         type: UPDATE_EVENT,
+        event: res.data,
+      })
+    )
+    .catch(() =>
+      alert(
+        "An error occurred while trying to update an event! Please try again."
+      )
+    );
+};
+
+export const updateDashboardEvent = (id, eventData) => (dispatch) => {
+  axios
+    .post(`api/event/${id}`, eventData)
+    .then((res) =>
+      dispatch({
+        type: UPDATE_DASHBOARD_EVENT,
         event: res.data,
       })
     )

@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   getTodosDue,
-  updateTodo,
+  updateDashboardTodo,
   deleteTodo,
 } from "../../../actions/todoActions";
 import {
   getTodaysEvents,
-  updateEvent,
+  updateDashboardEvent,
   deleteEvent,
 } from "../../../actions/eventActions";
 import { fetchRandomQuote } from "../../../utils/quotes";
@@ -260,14 +260,14 @@ const Dashboard = (props) => {
             todo={editingTodo}
             open={isToDoFormOpen}
             close={setIsToDoFormOpen}
-            edit={props.updateTodo}
+            edit={props.updateDashboardTodo}
             delete={props.deleteTodo}
           />
           <CalendarFormModal
             event={editingEvent}
             open={isEventFormOpen}
             close={setIsEventFormOpen}
-            edit={props.updateEvent}
+            edit={props.updateDashboardEvent}
             delete={props.deleteEvent}
           />
         </Grid>
@@ -278,9 +278,9 @@ const Dashboard = (props) => {
 
 Dashboard.propTypes = {
   getTodosDue: PropTypes.func.isRequired,
-  updateTodo: PropTypes.func.isRequired,
+  updateDashboardTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  updateEvent: PropTypes.func.isRequired,
+  updateDashboardEvent: PropTypes.func.isRequired,
   getTodaysEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -297,7 +297,7 @@ export default connect(mapStateToProps, {
   getTodosDue,
   getTodaysEvents,
   deleteTodo,
-  updateTodo,
-  updateEvent,
+  updateDashboardTodo,
+  updateDashboardEvent,
   deleteEvent,
 })(Dashboard);
