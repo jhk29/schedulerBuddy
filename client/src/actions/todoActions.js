@@ -6,6 +6,8 @@ import {
   UPDATE_TODO,
   SET_TODO_COMPLETE,
   ADD_TODO,
+  GET_TODOS_DUE,
+  UPDATE_DASHBOARD_TODO,
 } from "./types";
 
 export const getTodos = () => (dispatch) => {
@@ -20,6 +22,21 @@ export const getTodos = () => (dispatch) => {
     })
     .catch(() => {
       alert("An error occurred while trying to fetch to-dos!");
+    });
+};
+
+export const getTodosDue = () => (dispatch) => {
+  dispatch(setLoading());
+  axios
+    .get("api/todo/due")
+    .then((res) => {
+      dispatch({
+        type: GET_TODOS_DUE,
+        todos: res.data,
+      });
+    })
+    .catch(() => {
+      alert("An error occured while trying to fetch to-dos!");
     });
 };
 
@@ -62,6 +79,22 @@ export const updateTodo = (id, todoData) => (dispatch) => {
         todo: res.data,
       })
     )
+    .catch(() =>
+      alert(
+        "An error occurred while trying to update a to-do! Please try again."
+      )
+    );
+};
+
+export const updateDashboardTodo = (id, todoData) => (dispatch) => {
+  axios
+    .post(`api/todo/${id}`, todoData)
+    .then((res) => {
+      dispatch({
+        type: UPDATE_DASHBOARD_TODO,
+        todo: res.data,
+      });
+    })
     .catch(() =>
       alert(
         "An error occurred while trying to update a to-do! Please try again."

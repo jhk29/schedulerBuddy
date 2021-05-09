@@ -8,9 +8,13 @@ export const ADD_TODO = "ADD_TODO";
 export const DELETE_TODO = "DELETE_TODO";
 export const UPDATE_TODO = "UPDATE_TODO";
 export const SET_TODO_COMPLETE = "SET_TODO_COMPLETE";
+export const GET_TODOS_DUE = "GET_TODOS_DUE";
+export const UPDATE_DASHBOARD_TODO = "UPDATE_DASHBOARD_TODO";
 
 export const EVENT_LOADING = "EVENT_LOADING";
 export const GET_EVENTS = "GET_EVENTS";
+export const GET_TODAYS_EVENTS = "GET_TODAYS_EVENTS";
 export const ADD_EVENT = "ADD_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
 export const UPDATE_EVENT = "UPDATE_EVENT";
+export const UPDATE_DASHBOARD_EVENT = "UPDATE_DASHBOARD_EVENT";

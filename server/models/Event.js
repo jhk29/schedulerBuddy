@@ -15,11 +15,11 @@ const EventSchema = new Schema({
     required: false,
   },
   start: {
-    type: Date,
+    type: String,
     required: true,
   },
   end: {
-    type: Date,
+    type: String,
   },
   allDay: {
     type: Boolean,
