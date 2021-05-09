@@ -6,7 +6,7 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import Navbar from "./components/layout/Navbar/Navbar";
-// import Landing from "./components/pages/Landing/Landing";
+import Landing from "./components/pages/Landing/Landing";
 import Register from "./components/pages/Register/Register";
 import Login from "./components/pages/Login/Login";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
@@ -33,7 +33,7 @@ const App = () => {
       <Router>
         <div className="App">
           <Navbar />
-          <Route exact path="/" component={UnderConstruction} />
+          <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Switch>
