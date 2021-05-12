@@ -184,17 +184,11 @@ router.delete(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    User.findOne({ _id: req.user.id })
-      .then((user) => {
-        user.remove().then(() => {
-          Todo.remove({ userId: req.user.id });
-          Event.remove({ userId: req.user.id });
-          return res.json({ success: true });
-        });
-      })
-      .catch(() =>
-        res.status(400).json({ deleteFailed: "Failed to delete user!" })
-      );
+    Todo.remove({ userId: req.user.id }).catch((err) => console.log(err));
+    Event.remove({ userId: req.user.id }).catch((err) => console.log(err));
+    User.remove({ _id: req.user.id })
+      .then(() => res.json({ success: true }))
+      .catch((err) => console.log(err));
   }
 );
 
