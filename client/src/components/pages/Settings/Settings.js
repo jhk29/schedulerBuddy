@@ -114,7 +114,7 @@ const Settings = (props) => {
   return (
     <Grid
       container
-      direction="col"
+      direction="column"
       className={styles.rootContainer}
       spacing={3}
     >
@@ -140,7 +140,7 @@ const Settings = (props) => {
       <form noValidate>
         {value === 0 ? (
           <Grid container className={styles.formContainer} spacing={3}>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <TextField
                 name="name"
                 required
@@ -148,7 +148,7 @@ const Settings = (props) => {
                 margin="normal"
                 fullWidth
                 variant="outlined"
-                value={name}
+                value={name || ""}
                 error={showError && props.auth.error.name}
                 helperText={showError && props.auth.error.name}
                 id="name"
@@ -156,14 +156,14 @@ const Settings = (props) => {
                 label="Full Name"
               />
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <TextField
                 name="email"
                 required
                 key={2}
                 variant="outlined"
                 fullWidth
-                value={email}
+                value={email || ""}
                 error={showError && props.auth.error.email}
                 helperText={showError && props.auth.error.email}
                 onChange={handleInputChange}
@@ -171,7 +171,7 @@ const Settings = (props) => {
                 label="Email Address"
               />
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <Button
                 variant="contained"
                 color="primary"
@@ -194,10 +194,10 @@ const Settings = (props) => {
                 Cancel
               </Button>
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <Divider />
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <Button
                 variant="outlined"
                 color="secondary"
@@ -210,7 +210,7 @@ const Settings = (props) => {
           </Grid>
         ) : (
           <Grid container className={styles.formContainer} spacing={3}>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <TextField
                 name="currentPassword"
                 required
@@ -229,12 +229,11 @@ const Settings = (props) => {
                   (props.auth.error.passwordincorrect ||
                     props.auth.error.currentPassword)
                 }
-                value={currentPassword}
                 label="Current Password"
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <TextField
                 name="newPassword"
                 required
@@ -245,19 +244,17 @@ const Settings = (props) => {
                 id="newPassword"
                 error={showError && props.auth.error.newPassword}
                 helperText={showError && props.auth.error.newPassword}
-                value={newPassword}
                 label="New Password"
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <TextField
                 name="confirmPassword"
                 required
                 key={5}
                 variant="outlined"
                 fullWidth
-                value={confirmPassword}
                 error={showError && props.auth.error.confirmPassword}
                 helperText={showError && props.auth.error.confirmPassword}
                 type="password"
@@ -266,7 +263,7 @@ const Settings = (props) => {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item lg={12} md={12} sm={12} xs={12}>
+            <Grid item lg={8} md={8} sm={8} xs={8}>
               <Button
                 variant="contained"
                 color="primary"

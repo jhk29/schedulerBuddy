@@ -28,6 +28,7 @@ const useStyles = makeStyles(
       textAlign: "center",
       fontStyle: "oblique",
       marginTop: 25,
+      display: "block",
     },
     quoteAuthor: {
       float: "right",
