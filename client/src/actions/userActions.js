@@ -100,8 +100,6 @@ export const deleteUser = () => (dispatch) => {
       dispatch(setCurrentUser({}));
     })
     .catch(() =>
-      alert(
-        "An error occurred while trying to delete a to-do! Please try again."
-      )
+      alert("An error occurred while trying to delete user! Please try again.")
     );
 };
