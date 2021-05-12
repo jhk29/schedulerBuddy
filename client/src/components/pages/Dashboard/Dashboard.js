@@ -5,11 +5,13 @@ import {
   getTodosDue,
   updateDashboardTodo,
   deleteTodo,
+  addTodo,
 } from "../../../actions/todoActions";
 import {
   getTodaysEvents,
   updateDashboardEvent,
   deleteEvent,
+  addEvent,
 } from "../../../actions/eventActions";
 import { fetchRandomQuote } from "../../../utils/quotes";
 import useStyles from "./Dashboard.style";
@@ -21,6 +23,7 @@ import FavoriteTwoToneIcon from "@material-ui/icons/FavoriteTwoTone";
 import TodayIcon from "@material-ui/icons/Today";
 import ToDoFormModal from "../ToDo/ToDoFormModal";
 import CalendarFormModal from "../Calendar/CalendarForm";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import {
   List,
   ListItem,
@@ -34,13 +37,16 @@ import {
   LinearProgress,
   Chip,
   Typography,
+  Button,
 } from "@material-ui/core";
 
 const Dashboard = (props) => {
   const didMountRef = useRef(false);
-  const [isToDoFormOpen, setIsToDoFormOpen] = useState(false);
+  const [isEditToDoFormOpen, setIsEditToDoFormOpen] = useState(false);
+  const [isAddTodoFormOpen, setIsAddTodoFormOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState();
-  const [isEventFormOpen, setIsEventFormOpen] = useState(false);
+  const [isAddEventFormOpen, setIsAddEventFormOpen] = useState(false);
+  const [isEditEventFormOpen, setIsEditEventFormOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState();
   const [quoteAndAuthor, setQuoteAndAuthor] = useState();
   const style = useStyles();
@@ -57,6 +63,40 @@ const Dashboard = (props) => {
   const fetchTime = (date) => {
     let result = date.match(/\d\d:\d\d/);
     return result[0];
+  };
+
+  const NoTodoFound = () => {
+    return (
+      <div className={style.noTodoDisplay}>
+        <ErrorOutlineIcon />
+        <Typography>There is nothing due today!</Typography>
+        <Button
+          className={style.noDisplayButton}
+          variant="outlined"
+          color="secondary"
+          onClick={() => setIsAddTodoFormOpen(true)}
+        >
+          Add To-do
+        </Button>
+      </div>
+    );
+  };
+
+  const NoEventFound = () => {
+    return (
+      <div className={style.noEventDisplay}>
+        <ErrorOutlineIcon />
+        <Typography>There is no event today!</Typography>
+        <Button
+          className={style.noDisplayButton}
+          variant="outlined"
+          onClick={() => setIsAddEventFormOpen(true)}
+          color="secondary"
+        >
+          Add Event
+        </Button>
+      </div>
+    );
   };
 
   const formEditingTodo = (id, description, priority, deadline, completed) => {
@@ -143,40 +183,46 @@ const Dashboard = (props) => {
                         <TodayIcon /> Today's Events:
                       </ListSubheader>
                       <Divider />
-                      {Object.entries(props.event.events).map(
-                        ([
-                          value,
-                          { _id, allDay, start, end, title, description },
-                        ]) => (
-                          <div key={_id}>
-                            <ListItem
-                              button
-                              onClick={() => {
-                                formEditingEvent(
-                                  _id,
-                                  title,
-                                  start,
-                                  end,
-                                  description,
-                                  allDay
-                                );
-                                setIsEventFormOpen(true);
-                              }}
-                            >
-                              <ListItemIcon>
-                                <ArrowRightIcon />
-                              </ListItemIcon>
-                              <ListItemText
-                                primary={title}
-                                secondary={
-                                  allDay
-                                    ? "All Day"
-                                    : `${fetchTime(start)} - ${fetchTime(end)}`
-                                }
-                              />
-                            </ListItem>
-                            <Divider />
-                          </div>
+                      {props.event.events.length === 0 ? (
+                        <NoEventFound />
+                      ) : (
+                        Object.entries(props.event.events).map(
+                          ([
+                            value,
+                            { _id, allDay, start, end, title, description },
+                          ]) => (
+                            <div key={_id}>
+                              <ListItem
+                                button
+                                onClick={() => {
+                                  formEditingEvent(
+                                    _id,
+                                    title,
+                                    start,
+                                    end,
+                                    description,
+                                    allDay
+                                  );
+                                  setIsEditEventFormOpen(true);
+                                }}
+                              >
+                                <ListItemIcon>
+                                  <ArrowRightIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                  primary={title}
+                                  secondary={
+                                    allDay
+                                      ? "All Day"
+                                      : `${fetchTime(start)} - ${fetchTime(
+                                          end
+                                        )}`
+                                  }
+                                />
+                              </ListItem>
+                              <Divider />
+                            </div>
+                          )
                         )
                       )}
                     </List>
@@ -193,73 +239,77 @@ const Dashboard = (props) => {
                     <PlaylistAddCheckIcon /> Due Today:
                   </ListSubheader>
                   <Divider />
-                  {Object.entries(props.todo.todos).map(
-                    ([
-                      value,
-                      { _id, completed, description, priority, deadline },
-                    ]) => {
-                      let chipColor = "";
-                      let name = "";
-                      switch (priority) {
-                        case priorityLevels.HI.level:
-                          chipColor = priorityLevels.HI.color;
-                          name = priorityLevels.HI.name;
-                          break;
-                        case priorityLevels.ME.level:
-                          chipColor = priorityLevels.ME.color;
-                          name = priorityLevels.ME.name;
-                          break;
-                        case priorityLevels.LO.level:
-                          chipColor = priorityLevels.LO.color;
-                          name = priorityLevels.LO.name;
-                          break;
-                        default:
-                          break;
+                  {props.todo.todos.length === 0 ? (
+                    <NoTodoFound />
+                  ) : (
+                    Object.entries(props.todo.todos).map(
+                      ([
+                        value,
+                        { _id, completed, description, priority, deadline },
+                      ]) => {
+                        let chipColor = "";
+                        let name = "";
+                        switch (priority) {
+                          case priorityLevels.HI.level:
+                            chipColor = priorityLevels.HI.color;
+                            name = priorityLevels.HI.name;
+                            break;
+                          case priorityLevels.ME.level:
+                            chipColor = priorityLevels.ME.color;
+                            name = priorityLevels.ME.name;
+                            break;
+                          case priorityLevels.LO.level:
+                            chipColor = priorityLevels.LO.color;
+                            name = priorityLevels.LO.name;
+                            break;
+                          default:
+                            break;
+                        }
+                        return (
+                          <div key={_id}>
+                            <ListItem
+                              button
+                              onClick={() => {
+                                formEditingTodo(
+                                  _id,
+                                  description,
+                                  priority,
+                                  deadline,
+                                  completed
+                                );
+                                setIsEditToDoFormOpen(true);
+                              }}
+                            >
+                              <ListItemIcon>
+                                <ArrowRightIcon />
+                              </ListItemIcon>
+                              <ListItemText
+                                primary={description}
+                                secondary={
+                                  <Typography
+                                    component="span"
+                                    variant="body2"
+                                    color="textSecondary"
+                                  >
+                                    <Chip
+                                      label={name}
+                                      style={{
+                                        backgroundColor: chipColor,
+                                        color: "white",
+                                      }}
+                                    />
+                                    {completed
+                                      ? " • Completed"
+                                      : " • Not Completed"}
+                                  </Typography>
+                                }
+                              />
+                            </ListItem>
+                            <Divider />
+                          </div>
+                        );
                       }
-                      return (
-                        <div key={_id}>
-                          <ListItem
-                            button
-                            onClick={() => {
-                              formEditingTodo(
-                                _id,
-                                description,
-                                priority,
-                                deadline,
-                                completed
-                              );
-                              setIsToDoFormOpen(true);
-                            }}
-                          >
-                            <ListItemIcon>
-                              <ArrowRightIcon />
-                            </ListItemIcon>
-                            <ListItemText
-                              primary={description}
-                              secondary={
-                                <Typography
-                                  component="span"
-                                  variant="body2"
-                                  color="textSecondary"
-                                >
-                                  <Chip
-                                    label={name}
-                                    style={{
-                                      backgroundColor: chipColor,
-                                      color: "white",
-                                    }}
-                                  />
-                                  {completed
-                                    ? " • Completed"
-                                    : " • Not Completed"}
-                                </Typography>
-                              }
-                            />
-                          </ListItem>
-                          <Divider />
-                        </div>
-                      );
-                    }
+                    )
                   )}
                 </List>
               </CardContent>
@@ -267,17 +317,27 @@ const Dashboard = (props) => {
           </Grid>
           <ToDoFormModal
             todo={editingTodo}
-            open={isToDoFormOpen}
-            close={setIsToDoFormOpen}
+            open={isEditToDoFormOpen}
+            close={setIsEditToDoFormOpen}
             edit={props.updateDashboardTodo}
             delete={props.deleteTodo}
           />
+          <ToDoFormModal
+            open={isAddTodoFormOpen}
+            close={setIsAddTodoFormOpen}
+            add={props.addTodo}
+          />
           <CalendarFormModal
             event={editingEvent}
-            open={isEventFormOpen}
-            close={setIsEventFormOpen}
+            open={isEditEventFormOpen}
+            close={setIsEditEventFormOpen}
             edit={props.updateDashboardEvent}
             delete={props.deleteEvent}
+          />
+          <CalendarFormModal
+            add={props.addEvent}
+            open={isAddEventFormOpen}
+            close={setIsAddEventFormOpen}
           />
         </Grid>
       )}
@@ -289,9 +349,11 @@ Dashboard.propTypes = {
   getTodosDue: PropTypes.func.isRequired,
   updateDashboardTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired,
   updateDashboardEvent: PropTypes.func.isRequired,
   getTodaysEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
+  addEvent: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   todo: PropTypes.object.isRequired,
 };
@@ -306,7 +368,9 @@ export default connect(mapStateToProps, {
   getTodosDue,
   getTodaysEvents,
   deleteTodo,
+  addTodo,
   updateDashboardTodo,
   updateDashboardEvent,
   deleteEvent,
+  addEvent,
 })(Dashboard);
