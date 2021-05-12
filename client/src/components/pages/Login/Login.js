@@ -16,34 +16,29 @@ import { loginUser } from "../../../actions/userActions";
 import { Link } from "react-router-dom";
 import useStyles from "./Login.styles";
 
-// TODO: Clear prop errors when user leaves the page.
 const Login = (props) => {
   const style = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     if (props.auth.isAuthenticated) {
       props.history.push("/dashboard");
     }
-    if (props.errors) {
-      setErrors(props.errors);
-    }
   }, [props]);
 
   const onChange = (event) => {
     let changedField = event.target.name;
+    setShowError(false);
 
     switch (changedField) {
       case "email":
         setEmail(event.target.value);
-        setErrors({ email: "", password: errors.password });
         break;
       case "password":
         setPassword(event.target.value);
-        setErrors({ email: errors.email, password: "" });
         break;
       default:
         break;
@@ -57,6 +52,8 @@ const Login = (props) => {
       password: password,
     };
     props.loginUser(user);
+    setShowError(true);
+    console.log(props);
   };
 
   return (
@@ -78,8 +75,14 @@ const Login = (props) => {
             id="email"
             label="Email Address"
             name="email"
-            error={!!errors.email}
-            helperText={errors.email}
+            error={
+              showError &&
+              (props.auth.error.email || props.auth.error.emailnotfound)
+            }
+            helperText={
+              showError &&
+              (props.auth.error.email || props.auth.error.emailnotfound)
+            }
             onChange={onChange}
             autoFocus
           />
@@ -91,9 +94,15 @@ const Login = (props) => {
             type="password"
             name="password"
             id="password"
+            error={
+              showError &&
+              (props.auth.error.password || props.auth.error.passwordincorrect)
+            }
+            helperText={
+              showError &&
+              (props.auth.error.password || props.auth.error.passwordincorrect)
+            }
             label="Password"
-            error={!!errors.password || !!errors.passwordincorrect}
-            helperText={errors.password || errors.passwordincorrect}
             onChange={onChange}
           />
           <Button
@@ -123,12 +132,10 @@ const Login = (props) => {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

@@ -3,6 +3,7 @@ import {
   USER_LOADING,
   UPDATE_USER,
   UPDATE_USER_PASSWORD,
+  SET_USER_ERROR,
 } from "../actions/types";
 
 const isEmpty = require("is-empty");
@@ -21,34 +22,29 @@ export default function userReducer(state = initialState, action) {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
+        error: {},
       };
     case USER_LOADING:
       return {
         ...state,
+        error: {},
         loading: true,
       };
     case UPDATE_USER:
-      if (action.error) {
-        return {
-          ...state,
-          error: action.error,
-        };
-      }
       return {
         ...state,
         user: action.payload,
         error: {},
       };
     case UPDATE_USER_PASSWORD:
-      if (action.error) {
-        return {
-          ...state,
-          error: action.error,
-        };
-      }
       return {
         ...state,
         error: {},
+      };
+    case SET_USER_ERROR:
+      return {
+        ...state,
+        error: action.error,
       };
     default:
       return state;
