@@ -33,6 +33,17 @@ const useStyles = makeStyles(
     quoteAuthor: {
       float: "right",
     },
+    noEventDisplay: {
+      textAlign: "center",
+      marginTop: "6rem",
+    },
+    noTodoDisplay: {
+      textAlign: "center",
+      marginTop: "13rem",
+    },
+    noDisplayButton: {
+      marginTop: "0.5rem",
+    },
   },
   { index: 1 }
 );
