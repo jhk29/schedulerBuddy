@@ -115,7 +115,7 @@ const ToDoFormModal = (props) => {
                 margin="normal"
                 required
                 fullWidth
-                value={description}
+                value={description || ""}
                 name="description"
                 error={!isDescriptionValid}
                 label="Description"
@@ -170,7 +170,7 @@ const ToDoFormModal = (props) => {
                 required
                 label="Deadline"
                 variant="outlined"
-                value={deadline}
+                value={deadline || ""}
                 error={!isDeadlineValid}
                 helperText={!isDeadlineValid && "Deadline field is required"}
                 onChange={(e) => {

@@ -131,7 +131,7 @@ const CalendarFormModal = (props) => {
                 margin="normal"
                 required
                 fullWidth
-                value={title}
+                value={title || ""}
                 error={isTitleInvalid}
                 helperText={isTitleInvalid && "Title field is required."}
                 name="title"
@@ -150,7 +150,7 @@ const CalendarFormModal = (props) => {
                   required
                   label="Start Date"
                   variant="outlined"
-                  value={startDate.substring(0, 10)}
+                  value={startDate.substring(0, 10) || ""}
                   onChange={(e) => {
                     setStartDate(e.target.value);
                     setIsEndDateInvalid(false);
@@ -167,7 +167,7 @@ const CalendarFormModal = (props) => {
                   required
                   label="Start Date"
                   variant="outlined"
-                  value={startDate}
+                  value={startDate || ""}
                   onChange={(e) => {
                     setStartDate(e.target.value);
                     setIsEndDateInvalid(false);
@@ -186,7 +186,7 @@ const CalendarFormModal = (props) => {
                 required
                 label="End Date"
                 variant="outlined"
-                value={endDate}
+                value={endDate || ""}
                 error={isEndDateInvalid}
                 helperText={
                   isEndDateInvalid &&
@@ -209,7 +209,7 @@ const CalendarFormModal = (props) => {
                 margin="normal"
                 fullWidth
                 multiline
-                value={description}
+                value={description || ""}
                 name="description"
                 label="Description"
                 onChange={(e) => {

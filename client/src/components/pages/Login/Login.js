@@ -53,7 +53,6 @@ const Login = (props) => {
     };
     props.loginUser(user);
     setShowError(true);
-    console.log(props);
   };
 
   return (

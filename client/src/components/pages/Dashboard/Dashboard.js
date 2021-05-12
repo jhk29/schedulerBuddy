@@ -88,7 +88,12 @@ const Dashboard = (props) => {
               <Grid item lg={12}>
                 <Card className={style.smallerCard} variant="outlined">
                   <CardContent>
-                    <Typography color="textSecondary" gutterBottom>
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      color="textSecondary"
+                      gutterBottom
+                    >
                       <FavoriteTwoToneIcon />
                       {`Welcome back, ${props.auth.user.name}`}
                     </Typography>
@@ -97,6 +102,8 @@ const Dashboard = (props) => {
                     </Typography>
                     <Typography
                       className={style.wordsToInspireHeader}
+                      component="span"
+                      variant="body2"
                       color="textSecondary"
                     >
                       Some words to inspire you today:
@@ -106,16 +113,16 @@ const Dashboard = (props) => {
                         {" "}
                         <Typography
                           variant="body2"
-                          component="p"
+                          component="span"
                           className={style.inspireQuote}
                         >
                           {" "}
                           {`"${quoteAndAuthor.quote}"`}
                         </Typography>
                         <Typography
+                          component="span"
                           variant="body2"
                           className={style.quoteAuthor}
-                          component="p"
                         >
                           {`- ${quoteAndAuthor.author}`}
                         </Typography>{" "}
@@ -141,10 +148,9 @@ const Dashboard = (props) => {
                           value,
                           { _id, allDay, start, end, title, description },
                         ]) => (
-                          <>
+                          <div key={_id}>
                             <ListItem
                               button
-                              key={value}
                               onClick={() => {
                                 formEditingEvent(
                                   _id,
@@ -170,7 +176,7 @@ const Dashboard = (props) => {
                               />
                             </ListItem>
                             <Divider />
-                          </>
+                          </div>
                         )
                       )}
                     </List>
@@ -211,10 +217,9 @@ const Dashboard = (props) => {
                           break;
                       }
                       return (
-                        <>
+                        <div key={_id}>
                           <ListItem
                             button
-                            key={value}
                             onClick={() => {
                               formEditingTodo(
                                 _id,
@@ -232,7 +237,11 @@ const Dashboard = (props) => {
                             <ListItemText
                               primary={description}
                               secondary={
-                                <Typography color="textSecondary">
+                                <Typography
+                                  component="span"
+                                  variant="body2"
+                                  color="textSecondary"
+                                >
                                   <Chip
                                     label={name}
                                     style={{
@@ -248,7 +257,7 @@ const Dashboard = (props) => {
                             />
                           </ListItem>
                           <Divider />
-                        </>
+                        </div>
                       );
                     }
                   )}

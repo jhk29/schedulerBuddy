@@ -8,6 +8,7 @@ const useStyles = makeStyles(
     },
     formContainer: {
       margin: "auto",
+      justifyContent: "center",
     },
     cancelButton: {
       marginTop: "0.5rem",
