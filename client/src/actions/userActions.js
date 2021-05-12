@@ -6,7 +6,7 @@ import {
   USER_LOADING,
   UPDATE_USER,
   UPDATE_USER_PASSWORD,
-  GET_ERRORS,
+  SET_USER_ERROR,
 } from "./types";
 
 export const registerUser = (userData, history) => (dispatch) => {
@@ -15,8 +15,8 @@ export const registerUser = (userData, history) => (dispatch) => {
     .then((res) => history.push("/login"))
     .catch((err) =>
       dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data,
+        type: SET_USER_ERROR,
+        error: err.response.data,
       })
     );
 };
@@ -33,8 +33,8 @@ export const loginUser = (userData) => (dispatch) => {
     })
     .catch((err) =>
       dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data,
+        type: SET_USER_ERROR,
+        error: err.response.data,
       })
     );
 };
@@ -68,7 +68,7 @@ export const updatePassword = (userData) => (dispatch) => {
     })
     .catch((err) => {
       dispatch({
-        type: UPDATE_USER_PASSWORD,
+        type: SET_USER_ERROR,
         error: err.response.data,
       });
     });
@@ -85,7 +85,7 @@ export const updateUserInfo = (userData) => (dispatch) => {
     )
     .catch((err) =>
       dispatch({
-        type: UPDATE_USER,
+        type: SET_USER_ERROR,
         error: err.response.data,
       })
     );

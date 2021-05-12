@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Button,
   TextField,
@@ -16,8 +16,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../../actions/userActions";
 
-// TODO: figure out how to clear error when user leaves register page.
-
 const Register = (props) => {
   const style = useStyles();
 
@@ -25,13 +23,7 @@ const Register = (props) => {
   const [newEmail, setEmail] = useState("");
   const [newPassword, setPassword] = useState("");
   const [newConfirmPassword, setConfirmPasssword] = useState("");
-  const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    if (props.errors) {
-      setErrors(props.errors);
-    }
-  }, [props]);
+  const [showError, setShowError] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +34,30 @@ const Register = (props) => {
       password: newPassword,
       confirmPassword: newConfirmPassword,
     };
+
     props.registerUser(newUser, props.history);
+    setShowError(true);
+  };
+
+  const handleChange = (event) => {
+    let changedField = event.target.name;
+    setShowError(false);
+    switch (changedField) {
+      case "name":
+        setName(event.target.value);
+        break;
+      case "email":
+        setEmail(event.target.value);
+        break;
+      case "password":
+        setPassword(event.target.value);
+        break;
+      case "confirmPassword":
+        setConfirmPasssword(event.target.value);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -68,19 +83,11 @@ const Register = (props) => {
                 required
                 fullWidth
                 id="name"
+                error={showError && props.auth.error.name}
+                helperText={showError && props.auth.error.name}
                 label="Full Name"
                 autoFocus
-                error={!!errors.name}
-                helperText={errors.name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setErrors({
-                    name: "",
-                    email: errors.email,
-                    password: errors.password,
-                    confirmPassword: errors.confirmPassword,
-                  });
-                }}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -91,17 +98,9 @@ const Register = (props) => {
                 fullWidth
                 id="email"
                 label="Email Address"
-                error={!!errors.email}
-                helperText={errors.email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setErrors({
-                    name: errors.name,
-                    email: "",
-                    password: errors.password,
-                    confirmPassword: errors.confirmPassword,
-                  });
-                }}
+                error={showError && props.auth.error.email}
+                helperText={showError && props.auth.error.email}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -112,18 +111,10 @@ const Register = (props) => {
                 fullWidth
                 type="password"
                 id="password"
+                error={showError && props.auth.error.password}
+                helperText={showError && props.auth.error.password}
                 label="Password"
-                error={!!errors.password}
-                helperText={errors.password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setErrors({
-                    name: errors.name,
-                    email: errors.email,
-                    password: "",
-                    confirmPassword: "",
-                  });
-                }}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -134,18 +125,10 @@ const Register = (props) => {
                 fullWidth
                 type="password"
                 id="confirmPassword"
+                error={showError && props.auth.error.confirmPassword}
+                helperText={showError && props.auth.error.confirmPassword}
                 label="Confirmation Password"
-                error={!!errors.confirmPassword}
-                helperText={errors.confirmPassword}
-                onChange={(e) => {
-                  setConfirmPasssword(e.target.value);
-                  setErrors({
-                    name: errors.name,
-                    email: errors.email,
-                    password: "",
-                    confirmPassword: "",
-                  });
-                }}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
@@ -176,12 +159,10 @@ const Register = (props) => {
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));
