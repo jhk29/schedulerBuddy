@@ -1,7 +1,13 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
+import {
+  SET_CURRENT_USER,
+  USER_LOADING,
+  UPDATE_USER,
+  UPDATE_USER_PASSWORD,
+  GET_ERRORS,
+} from "./types";
 
 export const registerUser = (userData, history) => (dispatch) => {
   axios
@@ -50,4 +56,52 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
   dispatch(setCurrentUser({}));
+};
+
+export const updatePassword = (userData) => (dispatch) => {
+  axios
+    .post("/api/users/password", userData)
+    .then(() => {
+      dispatch({
+        type: UPDATE_USER_PASSWORD,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: UPDATE_USER_PASSWORD,
+        error: err.response.data,
+      });
+    });
+};
+
+export const updateUserInfo = (userData) => (dispatch) => {
+  axios
+    .post("/api/users/update", userData)
+    .then((res) =>
+      dispatch({
+        type: UPDATE_USER,
+        payload: res.data,
+      })
+    )
+    .catch((err) =>
+      dispatch({
+        type: UPDATE_USER,
+        error: err.response.data,
+      })
+    );
+};
+
+export const deleteUser = () => (dispatch) => {
+  axios
+    .delete("/api/users")
+    .then(() => {
+      localStorage.removeItem("jwtToken");
+      setAuthToken(false);
+      dispatch(setCurrentUser({}));
+    })
+    .catch(() =>
+      alert(
+        "An error occurred while trying to delete a to-do! Please try again."
+      )
+    );
 };

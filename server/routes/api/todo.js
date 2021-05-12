@@ -80,7 +80,7 @@ router.delete(
   }
 );
 
-// @route PUT api/todo/:id
+// @route POST api/todo/:id
 // @desc Update an existing todo
 // @access Private
 router.post(
