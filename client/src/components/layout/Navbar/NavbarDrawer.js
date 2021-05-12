@@ -17,7 +17,7 @@ import useStyles from "./Navbar.styles";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../../actions/authActions";
+import { logoutUser } from "../../../actions/userActions";
 
 // TODO: fix console errors
 const NavbarDrawer = (props) => {

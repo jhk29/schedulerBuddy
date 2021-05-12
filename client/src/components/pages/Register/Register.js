@@ -14,7 +14,7 @@ import useStyles from "./Register.styles";
 import { Copyright } from "../../layout/Copyright/Copyright";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../../../actions/authActions";
+import { registerUser } from "../../../actions/userActions";
 
 // TODO: figure out how to clear error when user leaves register page.
 

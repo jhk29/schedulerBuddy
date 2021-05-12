@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { Copyright } from "../../layout/Copyright/Copyright";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../../../actions/authActions";
+import { loginUser } from "../../../actions/userActions";
 import { Link } from "react-router-dom";
 import useStyles from "./Login.styles";
 

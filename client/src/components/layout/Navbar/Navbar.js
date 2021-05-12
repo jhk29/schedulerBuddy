@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import { Today, AccountCircle } from "@material-ui/icons";
-import { logoutUser } from "../../../actions/authActions";
+import { logoutUser } from "../../../actions/userActions";
 
 const Navbar = (props) => {
   const styles = useStyles();
