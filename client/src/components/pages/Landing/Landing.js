@@ -1,12 +1,22 @@
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import useStyles from "./Landing.styles";
 import Schedule from "./schedule.png";
 import { Copyright } from "../../layout/Copyright/Copyright";
 import { Grid, Typography, Divider, Button } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 
-const Landing = () => {
+const Landing = (props) => {
   const styles = useStyles();
   const history = useHistory();
+
+  useEffect(() => {
+    if (props.auth.isAuthenticated) {
+      props.history.push("/dashboard");
+    }
+  }, [props]);
 
   return (
     <>
@@ -56,4 +66,12 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+Landing.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(withRouter(Landing));

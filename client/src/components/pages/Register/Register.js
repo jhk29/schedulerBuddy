@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -24,6 +24,12 @@ const Register = (props) => {
   const [newPassword, setPassword] = useState("");
   const [newConfirmPassword, setConfirmPasssword] = useState("");
   const [showError, setShowError] = useState(false);
+
+  useEffect(() => {
+    if (props.auth.isAuthenticated) {
+      props.history.push("/dashboard");
+    }
+  }, [props]);
 
   const onSubmit = (e) => {
     e.preventDefault();
