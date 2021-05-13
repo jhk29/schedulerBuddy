@@ -36,6 +36,10 @@ const CalendarFormModal = (props) => {
       setEndDate(props.event.endDate);
       setAllDay(props.event.allDay);
       setDescription(props.event.description);
+    } else if (!props.date) {
+      let tempDate = new Date();
+      tempDate.setUTCHours(0, 0, 0, 0);
+      setStartDate(tempDate.toISOString().substring(0, 19));
     } else {
       setStartDate(props.date);
       if (props.dayWeekFlag) {
