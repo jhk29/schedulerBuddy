@@ -17,6 +17,13 @@ const useStyles = makeStyles(
       marginLeft: 7,
       float: "right",
     },
+    "@media(max-width: 650px)": {
+      root: {
+        "& .fc-toolbar, .fc-header-toolbar": {
+          flexDirection: "column",
+        },
+      },
+    },
   },
   { index: 1 }
 );

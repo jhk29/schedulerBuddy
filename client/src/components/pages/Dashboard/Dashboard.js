@@ -122,9 +122,9 @@ const Dashboard = (props) => {
       {props.todo.loading || props.event.loading ? (
         <LinearProgress color="secondary" />
       ) : (
-        <Grid container className={style.root} direction="row" spacing={3}>
-          <Grid item lg={4} md={12} sm={12} xs={12}>
-            <Grid container direction="column" spacing={2}>
+        <Grid container className={style.root} direction="row">
+          <Grid item className={style.gridItem} lg={4} md={12} sm={12} xs={12}>
+            <Grid container direction="column">
               <Grid item lg={12}>
                 <Card className={style.smallerCard} variant="outlined">
                   <CardContent>
@@ -231,7 +231,7 @@ const Dashboard = (props) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item lg={8} md={12} sm={12}>
+          <Grid className={style.gridItem} item lg={8} md={12} sm={12} xs={12}>
             <Card className={style.card} variant="outlined">
               <CardContent>
                 <List>

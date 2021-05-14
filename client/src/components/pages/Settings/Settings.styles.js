@@ -10,11 +10,12 @@ const useStyles = makeStyles(
       margin: "auto",
       justifyContent: "center",
     },
-    cancelButton: {
+    formInput: {
       marginTop: "0.5rem",
     },
     formTitle: {
       textAlign: "center",
+      marginTop: "1.5rem",
     },
   },
   { index: 1 }
