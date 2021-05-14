@@ -5,13 +5,13 @@ import {
   getTodosDue,
   updateDashboardTodo,
   deleteTodo,
-  addTodo,
+  addDashboardTodo,
 } from "../../../actions/todoActions";
 import {
   getTodaysEvents,
   updateDashboardEvent,
   deleteEvent,
-  addEvent,
+  addDashboardEvent,
 } from "../../../actions/eventActions";
 import { fetchRandomQuote } from "../../../utils/quotes";
 import useStyles from "./Dashboard.style";
@@ -325,7 +325,7 @@ const Dashboard = (props) => {
           <ToDoFormModal
             open={isAddTodoFormOpen}
             close={setIsAddTodoFormOpen}
-            add={props.addTodo}
+            add={props.addDashboardTodo}
           />
           <CalendarFormModal
             event={editingEvent}
@@ -335,7 +335,7 @@ const Dashboard = (props) => {
             delete={props.deleteEvent}
           />
           <CalendarFormModal
-            add={props.addEvent}
+            add={props.addDashboardEvent}
             open={isAddEventFormOpen}
             close={setIsAddEventFormOpen}
           />
@@ -349,11 +349,11 @@ Dashboard.propTypes = {
   getTodosDue: PropTypes.func.isRequired,
   updateDashboardTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  addTodo: PropTypes.func.isRequired,
+  addDashboardTodo: PropTypes.func.isRequired,
   updateDashboardEvent: PropTypes.func.isRequired,
   getTodaysEvents: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
-  addEvent: PropTypes.func.isRequired,
+  addDashboardEvent: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   todo: PropTypes.object.isRequired,
 };
@@ -368,9 +368,9 @@ export default connect(mapStateToProps, {
   getTodosDue,
   getTodaysEvents,
   deleteTodo,
-  addTodo,
+  addDashboardTodo,
   updateDashboardTodo,
   updateDashboardEvent,
   deleteEvent,
-  addEvent,
+  addDashboardEvent,
 })(Dashboard);

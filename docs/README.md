@@ -1,6 +1,6 @@
 # Scheduler Buddy
-![image](https://user-images.githubusercontent.com/58125497/118260878-b1a5db00-b467-11eb-8498-867190902ba1.png)
 
+![image](https://user-images.githubusercontent.com/58125497/118260878-b1a5db00-b467-11eb-8498-867190902ba1.png)
 
 **Scheduler Buddy** is a MERN stack scheduler web application that is currently under development.
 
@@ -18,10 +18,12 @@ To run the application **locally**,
 
 or **RUN THE DEMO**:
 
-👉👉  https://scheduler-buddy.herokuapp.com
+👉👉 https://scheduler-buddy.herokuapp.com
 
 ---
+
 ✅ **FEATURES**:
+
 - Mobile-friendly
 - User registration
 - User-specific to-do lists
@@ -29,6 +31,7 @@ or **RUN THE DEMO**:
 - Dashboard to easily keep track of the events/tasks due the current date.
 
 ---
+
 [❤️ **CONTRIBUTION GUIDE**:](https://github.com/jhk29/schedulerBuddy/blob/main/docs/CONTRIBUTING.md)
 
 [💙 **CODE OF CONDUCT**:](https://github.com/jhk29/schedulerBuddy/blob/main/docs/CODE_OF_CONDUCT.md)
