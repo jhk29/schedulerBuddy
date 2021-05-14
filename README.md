@@ -30,3 +30,4 @@ or **RUN THE DEMO**:
 
 ---
 [❤️ **CONTRIBUTION GUIDE**:](https://github.com/jhk29/schedulerBuddy/blob/main/CONTRIBUTING.md)
+[💙 **CODE OF CONDUCT**:](https://github.com/jhk29/schedulerBuddy/blob/main/CODE_OF_CONDUCT.md)
