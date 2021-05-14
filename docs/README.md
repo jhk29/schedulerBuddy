@@ -2,7 +2,7 @@
 ![image](https://user-images.githubusercontent.com/58125497/118260878-b1a5db00-b467-11eb-8498-867190902ba1.png)
 
 
-**Scheduler Buddy** is a MERN stack scheduler web application that is currently under development.
+**Scheduler Buddy** is a MERN stack scheduler web application.
 
 ⚠️ Note that this app uses Atlas Free Tier cluster, and hence there is a data transfer limit.
 
