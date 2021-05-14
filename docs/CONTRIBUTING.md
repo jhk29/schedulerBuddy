@@ -4,7 +4,7 @@ However, before contributing to this repository, please first dicuss the change 
 
 👉👉 **E-mail**: saminik9822@gmail.com
 
-⚠️ Please note we have a [code of conduct](https://github.com/jhk29/schedulerBuddy/blob/main/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+⚠️ Please note we have a [code of conduct](https://github.com/jhk29/schedulerBuddy/blob/main/docs/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 ---
 ## How to Contribute
