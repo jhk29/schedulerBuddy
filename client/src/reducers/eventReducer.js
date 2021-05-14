@@ -6,6 +6,7 @@ import {
   UPDATE_EVENT,
   GET_TODAYS_EVENTS,
   UPDATE_DASHBOARD_EVENT,
+  ADD_DASHBOARD_EVENT,
 } from "../actions/types";
 import moment from "moment";
 
@@ -16,6 +17,8 @@ const initialState = {
 };
 
 export default function eventReducer(state = initialState, action) {
+  const today = moment().startOf("day").toISOString().substring(0, 10);
+
   switch (action.type) {
     case GET_EVENTS:
       return {
@@ -45,7 +48,6 @@ export default function eventReducer(state = initialState, action) {
         }),
       };
     case UPDATE_DASHBOARD_EVENT:
-      const today = moment().startOf("day").toISOString().substring(0, 10);
       if (action.event.start.substring(0, 10) !== today) {
         return {
           ...state,
@@ -62,6 +64,14 @@ export default function eventReducer(state = initialState, action) {
           }
           return event;
         }),
+      };
+    case ADD_DASHBOARD_EVENT:
+      state.events = [action.event, ...state.events];
+      return {
+        ...state,
+        events: state.events.filter(
+          (event) => event.start.substring(0, 10) === today
+        ),
       };
     case ADD_EVENT:
       return {

@@ -7,6 +7,7 @@ import {
   UPDATE_EVENT,
   GET_TODAYS_EVENTS,
   UPDATE_DASHBOARD_EVENT,
+  ADD_DASHBOARD_EVENT,
 } from "./types";
 
 export const getEvents = () => (dispatch) => {
@@ -98,6 +99,21 @@ export const updateDashboardEvent = (id, eventData) => (dispatch) => {
       alert(
         "An error occurred while trying to update an event! Please try again."
       )
+    );
+};
+
+export const addDashboardEvent = (eventData) => (dispatch) => {
+  axios
+    .post("/api/event/add", eventData)
+    .then((res) => {
+      dispatch({
+        type: ADD_DASHBOARD_EVENT,
+        event: res.data,
+      });
+      alert("Event successfully added!");
+    })
+    .catch(() =>
+      alert("An error occurred while trying to add an event! Please try again.")
     );
 };
 

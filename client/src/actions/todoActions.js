@@ -8,6 +8,7 @@ import {
   ADD_TODO,
   GET_TODOS_DUE,
   UPDATE_DASHBOARD_TODO,
+  ADD_DASHBOARD_TODO,
 } from "./types";
 
 export const getTodos = () => (dispatch) => {
@@ -102,15 +103,30 @@ export const updateDashboardTodo = (id, todoData) => (dispatch) => {
     );
 };
 
+export const addDashboardTodo = (todoData) => (dispatch) => {
+  axios
+    .post("/api/todo/add", todoData)
+    .then((res) => {
+      dispatch({
+        type: ADD_DASHBOARD_TODO,
+        todo: res.data,
+      });
+    })
+    .catch(() =>
+      alert("An error occurred while trying to add a to-do! Please try again.")
+    );
+};
+
 export const setCompleted = (id, todoData) => (dispatch) => {
   axios
     .post(`/api/todo/${id}`, todoData)
-    .then((res) =>
+    .then((res) => {
       dispatch({
         type: SET_TODO_COMPLETE,
         todo: res.data,
-      })
-    )
+      });
+      alert("Todo successfully added!");
+    })
     .catch(() =>
       alert(
         "An error occured while to set a to-do's complete field! Please try again."

@@ -7,6 +7,7 @@ import {
   SET_TODO_COMPLETE,
   GET_TODOS_DUE,
   UPDATE_DASHBOARD_TODO,
+  ADD_DASHBOARD_TODO,
 } from "../actions/types";
 import moment from "moment";
 
@@ -17,6 +18,8 @@ const initialState = {
 };
 
 export default function todoReducer(state = initialState, action) {
+  const today = moment().startOf("day").toISOString().substring(0, 10);
+
   switch (action.type) {
     case GET_TODOS:
       return {
@@ -46,7 +49,6 @@ export default function todoReducer(state = initialState, action) {
         }),
       };
     case UPDATE_DASHBOARD_TODO:
-      const today = moment().startOf("day").toISOString().substring(0, 10);
       if (action.todo.deadline.substring(0, 10) !== today) {
         return {
           ...state,
@@ -81,6 +83,14 @@ export default function todoReducer(state = initialState, action) {
       return {
         ...state,
         todos: state.todos.filter((todo) => todo._id !== action.payload),
+      };
+    case ADD_DASHBOARD_TODO:
+      state.todos = [action.todo, ...state.todos];
+      return {
+        ...state,
+        todos: state.todos.filter(
+          (todo) => todo.deadline.substring(0, 10) === today
+        ),
       };
     default:
       return state;
