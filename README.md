@@ -29,4 +29,4 @@ or **RUN THE DEMO**:
 - Dashboard to easily keep track of the events/tasks due the current date.
 
 ---
-❤️ **CONTRIBUTIONS**:
+[❤️ **CONTRIBUTION GUIDE**:](https://github.com/jhk29/schedulerBuddy/blob/main/CONTRIBUTING.md)
