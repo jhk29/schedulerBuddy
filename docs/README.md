@@ -29,6 +29,6 @@ or **RUN THE DEMO**:
 - Dashboard to easily keep track of the events/tasks due the current date.
 
 ---
-[❤️ **CONTRIBUTION GUIDE**:](https://github.com/jhk29/schedulerBuddy/blob/main/CONTRIBUTING.md)
+[❤️ **CONTRIBUTION GUIDE**:](https://github.com/jhk29/schedulerBuddy/blob/main/docs/CONTRIBUTING.md)
 
-[💙 **CODE OF CONDUCT**:](https://github.com/jhk29/schedulerBuddy/blob/main/CODE_OF_CONDUCT.md)
+[💙 **CODE OF CONDUCT**:](https://github.com/jhk29/schedulerBuddy/blob/main/docs/CODE_OF_CONDUCT.md)
