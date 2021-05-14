@@ -112,13 +112,8 @@ const Settings = (props) => {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      className={styles.rootContainer}
-      spacing={3}
-    >
-      <Grid item lg={12} md={12} sm={12} xs={12}>
+    <Grid container direction="column" className={styles.rootContainer}>
+      <Grid item lg={12} md={12} sm={12} xs={12} spacing={2}>
         <BottomNavigation
           value={value}
           onChange={(_, newValue) => {
@@ -139,7 +134,7 @@ const Settings = (props) => {
       </Grid>
       <form noValidate>
         {value === 0 ? (
-          <Grid container className={styles.formContainer} spacing={3}>
+          <Grid container className={styles.formContainer}>
             <Grid item lg={8} md={8} sm={8} xs={8}>
               <TextField
                 name="name"
@@ -163,6 +158,7 @@ const Settings = (props) => {
                 key={2}
                 variant="outlined"
                 fullWidth
+                className={styles.formInput}
                 value={email || ""}
                 error={showError && props.auth.error.email}
                 helperText={showError && props.auth.error.email}
@@ -176,6 +172,7 @@ const Settings = (props) => {
                 variant="contained"
                 color="primary"
                 fullWidth
+                className={styles.formInput}
                 disabled={
                   props.auth.user.name === name &&
                   props.auth.user.email === email
@@ -188,7 +185,7 @@ const Settings = (props) => {
                 variant="outlined"
                 color="primary"
                 fullWidth
-                className={styles.cancelButton}
+                className={styles.formInput}
                 onClick={resetToInitialValues}
               >
                 Cancel
@@ -201,6 +198,7 @@ const Settings = (props) => {
               <Button
                 variant="outlined"
                 color="secondary"
+                className={styles.formInput}
                 onClick={handleUserDelete}
                 fullWidth
               >
@@ -209,13 +207,14 @@ const Settings = (props) => {
             </Grid>
           </Grid>
         ) : (
-          <Grid container className={styles.formContainer} spacing={3}>
+          <Grid container className={styles.formContainer}>
             <Grid item lg={8} md={8} sm={8} xs={8}>
               <TextField
                 name="currentPassword"
                 required
                 key={3}
                 fullWidth
+                className={styles.formInput}
                 type="password"
                 variant="outlined"
                 id="currentPassword"
@@ -237,6 +236,7 @@ const Settings = (props) => {
               <TextField
                 name="newPassword"
                 required
+                className={styles.formInput}
                 key={4}
                 variant="outlined"
                 fullWidth
@@ -255,6 +255,7 @@ const Settings = (props) => {
                 key={5}
                 variant="outlined"
                 fullWidth
+                className={styles.formInput}
                 error={showError && props.auth.error.confirmPassword}
                 helperText={showError && props.auth.error.confirmPassword}
                 type="password"
@@ -268,6 +269,7 @@ const Settings = (props) => {
                 variant="contained"
                 color="primary"
                 fullWidth
+                className={styles.formInput}
                 disabled={!currentPassword || !newPassword || !confirmPassword}
                 onClick={handlePasswordChange}
               >
@@ -277,7 +279,7 @@ const Settings = (props) => {
                 variant="outlined"
                 color="primary"
                 fullWidth
-                className={styles.cancelButton}
+                className={styles.formInput}
                 onClick={resetToInitialValues}
               >
                 Cancel

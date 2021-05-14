@@ -20,7 +20,7 @@ const Landing = (props) => {
 
   return (
     <>
-      <Grid className={styles.container} container direction="row" spacing={2}>
+      <Grid className={styles.container} container direction="row">
         <Grid item className={styles.innerContainer} md={6} xs={12}>
           <img
             src={Schedule}
@@ -28,7 +28,7 @@ const Landing = (props) => {
             alt="scheduling-characters"
           />
         </Grid>
-        <Grid className={styles.innerContainer} item md={6} xs={12}>
+        <Grid item className={styles.summary} md={6} xs={12}>
           <Typography
             className={styles.schedulerInfo}
             variant="h4"

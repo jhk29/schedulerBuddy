@@ -36,6 +36,11 @@ const useStyles = makeStyles(
       textDecoration: "none",
       color: "black",
     },
+    "@media (max-width:410px)": {
+      navButton: {
+        display: "none",
+      },
+    },
   },
   { index: 1 }
 );

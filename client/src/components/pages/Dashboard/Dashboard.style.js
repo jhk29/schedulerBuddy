@@ -4,8 +4,6 @@ const useStyles = makeStyles(
   {
     root: {
       marginTop: "5rem",
-      marginLeft: "0.3rem",
-      paddingRight: "2rem",
     },
     card: {
       height: 600,
@@ -19,6 +17,7 @@ const useStyles = makeStyles(
     },
     smallerCard: {
       height: 200,
+      marginBottom: "0.5rem",
     },
     wordsToInspireHeader: {
       fontSize: 14,
@@ -43,6 +42,9 @@ const useStyles = makeStyles(
     },
     noDisplayButton: {
       marginTop: "0.5rem",
+    },
+    gridItem: {
+      padding: 10,
     },
   },
   { index: 1 }
