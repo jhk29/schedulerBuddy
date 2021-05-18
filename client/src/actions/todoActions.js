@@ -125,7 +125,6 @@ export const setCompleted = (id, todoData) => (dispatch) => {
         type: SET_TODO_COMPLETE,
         todo: res.data,
       });
-      alert("Todo successfully added!");
     })
     .catch(() =>
       alert(
